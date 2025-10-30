@@ -1,6 +1,6 @@
 package com.example.EdufyCreator.models.entities;
 
-import com.example.EdufyCreator.models.dtos.SongDTO;
+import com.example.EdufyCreator.models.dtos.VideoPlaylistDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -30,9 +30,16 @@ public class Creator {
     @Column(name = "video_clip_id")
     private List<Long> videoClipIds = new ArrayList<>();
 
-    /*@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
-    private List<VideoPlaylist> videoPlaylists = new ArrayList<>();*/
+    //ED-153-AA
+    @ElementCollection
+    @CollectionTable(
+            name = "creator_video_playlist",
+            joinColumns = @JoinColumn(name = "creator_id")
+    )
+    @Column(name = "video_playlist_id")
+    private List<Long> videoPlaylistIds = new ArrayList<>();
 
+    //ED-148-AA
     @ElementCollection
     @CollectionTable(
             name = "creator_songs",
@@ -55,12 +62,12 @@ public class Creator {
 
     public Creator() {}
 
-    public Creator(Long id, String sub, String username, List<Long> videoClipIds, List<VideoPlaylist> videoPlaylists, List<Long> songIds, List<Album> albums, boolean active) {
+    public Creator(Long id, String sub, String username, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Album> albums, boolean active) {
         this.id = id;
         this.sub = sub;
         this.username = username;
         this.videoClipIds = videoClipIds;
-        //this.videoPlaylists = videoPlaylists;
+        this.videoPlaylistIds = videoPlaylistIds;
         this.songIds = songIds;
         //this.albums = albums;
         this.active = active;
@@ -71,7 +78,7 @@ public class Creator {
         this.sub = creator.sub;
         this.username = creator.username;
         this.videoClipIds = creator.videoClipIds;
-        //this.videoPlaylists = creator.videoPlaylists;
+        this.videoPlaylistIds = creator.videoPlaylistIds;
         this.songIds = creator.songIds;
         //this.albums = creator.albums;
         this.active = creator.active;
@@ -109,13 +116,13 @@ public class Creator {
         this.videoClipIds = videoClipIds;
     }
 
-/*    public List<VideoPlaylist> getVideoPlaylists() {
-        return videoPlaylists;
+    public List<Long> getVideoPlaylistIds() {
+        return videoPlaylistIds;
     }
 
-    public void setVideoPlaylists(List<VideoPlaylist> videoPlaylists) {
-        this.videoPlaylists = videoPlaylists;
-    }*/
+    public void setVideoPlaylistIds(List<Long> videoPlaylistIds) {
+        this.videoPlaylistIds = videoPlaylistIds;
+    }
 
     public List<Long> getSongIds() {
         return songIds;
@@ -164,7 +171,7 @@ public class Creator {
                 ", sub='" + sub + '\'' +
                 ", username='" + username + '\'' +
                 ", videoClipIds=" + videoClipIds +
-                //", videoPlaylists=" + videoPlaylists +
+                ", videoPlaylistIds=" + videoPlaylistIds +
                 ", songIds=" + songIds +
                 /*", albums=" + albums +
                 ", podcastEpisodes=" + podcastEpisodes +
