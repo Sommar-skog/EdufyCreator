@@ -33,7 +33,7 @@ public class Creator {
     //ED-153-AA
     @ElementCollection
     @CollectionTable(
-            name = "creator_video_playlist",
+            name = "creator_video_playlists",
             joinColumns = @JoinColumn(name = "creator_id")
     )
     @Column(name = "video_playlist_id")
@@ -66,15 +66,21 @@ public class Creator {
     @Column(name = "podcast_episode_id")
     private List<Long> podcastEpisodeIds = new ArrayList<>();
 
-    /*@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
-    private List<PodcastSeason> podcastSeasons = new ArrayList<>();*/
+   //ED-152-AA
+    @ElementCollection
+    @CollectionTable(
+            name = "creator_podcast_seasons",
+            joinColumns = @JoinColumn(name = "creator_id")
+    )
+    @Column(name = "podcast_season_id")
+    private List<Long> podcastSeasonIds = new ArrayList<>();
 
     @Column(name = "active", nullable = false)
     private boolean active;
 
     public Creator() {}
 
-    public Creator(Long id, String sub, String username, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, boolean active) {
+    public Creator(Long id, String sub, String username, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, List<Long> podcastSeasonIds, boolean active) {
         this.id = id;
         this.sub = sub;
         this.username = username;
@@ -83,6 +89,7 @@ public class Creator {
         this.songIds = songIds;
         this.albumIds = albumIds;
         this.podcastEpisodeIds = podcastEpisodeIds;
+        this.podcastSeasonIds = podcastSeasonIds;
         this.active = active;
     }
 
@@ -95,6 +102,7 @@ public class Creator {
         this.songIds = creator.songIds;
         this.albumIds = creator.albumIds;
         this.podcastEpisodeIds = creator.podcastEpisodeIds;
+        this.podcastSeasonIds = creator.podcastSeasonIds;
         this.active = creator.active;
     }
 
@@ -162,13 +170,13 @@ public class Creator {
         this.podcastEpisodeIds = podcastEpisodeIds;
     }
 
-    /*    public List<PodcastSeason> getPodcastSeasons() {
-        return podcastSeasons;
+    public List<Long> getPodcastSeasonIds() {
+        return podcastSeasonIds;
     }
 
-    public void setPodcastSeasons(List<PodcastSeason> podcastSeasons) {
-        this.podcastSeasons = podcastSeasons;
-    }*/
+    public void setPodcastSeasonIds(List<Long> podcastSeasonIds) {
+        this.podcastSeasonIds = podcastSeasonIds;
+    }
 
     public boolean isActive() {
         return active;
@@ -189,7 +197,7 @@ public class Creator {
                 ", songIds=" + songIds +
                 ", albumIds=" + albumIds +
                 ", podcastEpisodeIds=" + podcastEpisodeIds +
-                //", podcastSeasons=" + podcastSeasons +
+                ", podcastSeasonIds=" + podcastSeasonIds +
                 ", active=" + active +
                 '}';
     }
