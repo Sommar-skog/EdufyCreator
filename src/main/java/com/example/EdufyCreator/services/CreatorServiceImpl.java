@@ -40,6 +40,11 @@ public class CreatorServiceImpl implements CreatorService {
     @Override
     public List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id) {
         List<Creator> creators = getCreatorsByMediaIdFromDB(mediaType, id);
+
+        if (creators.isEmpty()) {
+            throw new ResourceNotFoundException("Creator", mediaType + "Id", id);
+        }
+
         return creators.stream().map(CreatorResponseMapper::toDTOWithUsernameAndId).collect(Collectors.toList());
     }
 

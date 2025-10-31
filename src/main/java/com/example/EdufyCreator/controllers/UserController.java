@@ -28,7 +28,8 @@ public class UserController {
     //ED-146-AA
     @GetMapping("/creatorsbymediaid")
     public ResponseEntity<List<CreatorResponseDTO>> getCreatorsByMediaId(@RequestParam("mediaType") String mediaType, @RequestParam("id") Long id) {
-        return ResponseEntity.ok(getCreatorsByMediaId(mediaType,id));
+        List<CreatorResponseDTO> creators = creatorService.getCreatorsByMediaId(mediaType, id);
+        return ResponseEntity.ok(creators);
     }
 
 
