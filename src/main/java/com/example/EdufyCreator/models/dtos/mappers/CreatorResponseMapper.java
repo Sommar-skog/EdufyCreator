@@ -10,7 +10,7 @@ import java.util.List;
 public class CreatorResponseMapper {
 
     //ED-143-AA
-    public static CreatorResponseDTO toDTO(Creator creator) {
+    public static CreatorResponseDTO toFullDTO(Creator creator) {
 
 
         CreatorResponseDTO dto = new CreatorResponseDTO();

@@ -29,6 +29,6 @@ public class CreatorServiceImpl implements CreatorService {
 
         //TODO Get (music, video, pod lists with titles).
 
-        return CreatorResponseMapper.toDTO(creator);
+        return CreatorResponseMapper.toFullDTO(creator);
     }
 }
