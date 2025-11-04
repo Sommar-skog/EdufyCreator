@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .logout(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/h2-console/**").permitAll() //ED-170-AA
                                 .anyRequest().permitAll() //change later
 
                 );
