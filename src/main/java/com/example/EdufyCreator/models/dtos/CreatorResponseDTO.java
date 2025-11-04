@@ -1,9 +1,12 @@
 package com.example.EdufyCreator.models.dtos;
 
 import com.example.EdufyCreator.models.entities.Creator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
+//ED-143-AA
+@JsonInclude(JsonInclude.Include.NON_NULL) //ED-146-AA
 public class CreatorResponseDTO {
 
     private long id;
@@ -15,7 +18,9 @@ public class CreatorResponseDTO {
     private List<String> albums;
     private List<String> podcastEpisodes;
     private List<String> podcastSeasons;
-    private boolean active;
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT) //ED-146-AA
+    private Boolean active;
 
     public CreatorResponseDTO() {}
 
@@ -111,11 +116,11 @@ public class CreatorResponseDTO {
         this.podcastSeasons = podcastSeasons;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
