@@ -28,6 +28,14 @@ public class CreatorResponseMapper {
         return dto;
     }
 
+    //ED-146-AA
+    public static CreatorResponseDTO toDTOWithUsernameAndId(Creator creator) {
+        CreatorResponseDTO dto = new CreatorResponseDTO();
+        dto.setId(creator.getId());
+        dto.setUsername(creator.getUsername());
+        return dto;
+    }
+
     //ED-143-AA
     private static List<String> getMediaNames (List<Long> mediaIds){
         List<String> mediaNames = new ArrayList<>();

@@ -8,6 +8,10 @@ import com.example.EdufyCreator.repositories.CreatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 //ED-143-AA
 @Service
 public class CreatorServiceImpl implements CreatorService {
@@ -30,5 +34,46 @@ public class CreatorServiceImpl implements CreatorService {
         //TODO Get (music, video, pod lists with titles).
 
         return CreatorResponseMapper.toFullDTO(creator);
+    }
+
+    //ED-146-AA
+    @Override
+    public List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id) {
+        List<Creator> creators = getCreatorsByMediaIdFromDB(mediaType, id);
+
+        if (creators.isEmpty()) {
+            throw new ResourceNotFoundException("Creator", mediaType + "Id", id);
+        }
+
+        return creators.stream().map(CreatorResponseMapper::toDTOWithUsernameAndId).collect(Collectors.toList());
+    }
+
+    private List<Creator> getCreatorsByMediaIdFromDB(String mediaType, Long id) {
+        List<Creator> creators = new ArrayList<>();
+        mediaType = mediaType.toLowerCase();
+
+        switch (mediaType) {
+            case "song":
+                creators.addAll(creatorRepository.findBySongIdsContaining(id));
+                break;
+            case "album":
+                creators.addAll(creatorRepository.findByAlbumIdsContaining(id));
+                break;
+            case "videoclip":
+                creators.addAll(creatorRepository.findByVideoClipIdsContaining(id));
+                break;
+            case "videoplaylist":
+                creators.addAll(creatorRepository.findByVideoPlaylistIdsContaining(id));
+                break;
+            case "podcastepesode":
+                creators.addAll(creatorRepository.findByPodcastEpisodeIdsContaining(id));
+                break;
+            case "podcastseason":
+                creators.addAll(creatorRepository.findByPodcastSeasonIdsContaining(id));
+                break;
+            default:
+                throw new ResourceNotFoundException("MediaType", "mediaType", mediaType);
+        }
+        return creators;
     }
 }
