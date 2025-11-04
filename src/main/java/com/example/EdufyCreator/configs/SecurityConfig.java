@@ -25,8 +25,9 @@ public class SecurityConfig {
                 .logout(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .anyRequest().permitAll() //change later
                                 .requestMatchers("/h2-console/**").permitAll()
+                                .anyRequest().permitAll() //change later
+
                 );
                   /* .oauth2ResourceServer(oauth2 ->
                          oauth2
