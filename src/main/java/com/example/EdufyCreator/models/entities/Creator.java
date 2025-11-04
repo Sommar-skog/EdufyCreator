@@ -1,6 +1,5 @@
 package com.example.EdufyCreator.models.entities;
 
-import com.example.EdufyCreator.models.dtos.AlbumDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
