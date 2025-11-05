@@ -14,7 +14,7 @@ import java.util.List;
 
 //ED-257-AA
 @RestController
-@RequestMapping("/creators")
+@RequestMapping("/creator")
 public class ClientController {
 
     private final CreatorService creatorService;
