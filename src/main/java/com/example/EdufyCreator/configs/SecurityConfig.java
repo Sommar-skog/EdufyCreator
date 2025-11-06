@@ -1,6 +1,6 @@
 package com.example.EdufyCreator.configs;
 
-import jakarta.persistence.Column;
+import com.example.EdufyCreator.converters.JwtAuthConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -17,7 +17,7 @@ public class SecurityConfig {
 
     //ED-154-AA
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthConverter jwtAuthConverter) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .headers(h -> h.frameOptions(frameOptions -> frameOptions.disable()))
@@ -27,12 +27,13 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/h2-console/**").permitAll() //ED-170-AA
                                 .anyRequest().permitAll() //change later
-
-                );
-                  /* .oauth2ResourceServer(oauth2 ->
+                //ED-169-AWS connected auth converter
+                )
+                   .oauth2ResourceServer(oauth2 ->
                          oauth2
-                                 .jwt(jwt -> jwt.jwtAuthenticationConverter())
-                 );*/
+                                 .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter))
+                 );
+
         return http.build();
     }
 }
