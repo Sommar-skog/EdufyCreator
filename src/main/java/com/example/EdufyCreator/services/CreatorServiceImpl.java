@@ -4,6 +4,7 @@ import com.example.EdufyCreator.exceptions.ResourceNotFoundException;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
 import com.example.EdufyCreator.models.dtos.mappers.CreatorResponseMapper;
 import com.example.EdufyCreator.models.entities.Creator;
+import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.repositories.CreatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,9 @@ public class CreatorServiceImpl implements CreatorService {
         return CreatorResponseMapper.toFullDTO(creator);
     }
 
-    //ED-146-AA
+    //ED-146-AA //ED-257-AA
     @Override
-    public List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id) {
+    public List<CreatorResponseDTO> getCreatorsByMediaId(MediaType mediaType, Long id) {
         List<Creator> creators = getCreatorsByMediaIdFromDB(mediaType, id);
 
         if (creators.isEmpty()) {
@@ -48,27 +49,27 @@ public class CreatorServiceImpl implements CreatorService {
         return creators.stream().map(CreatorResponseMapper::toDTOWithUsernameAndId).collect(Collectors.toList());
     }
 
-    private List<Creator> getCreatorsByMediaIdFromDB(String mediaType, Long id) {
+    //ED-146-AA //ED-257-AA
+    private List<Creator> getCreatorsByMediaIdFromDB(MediaType mediaType, Long id) {
         List<Creator> creators = new ArrayList<>();
-        mediaType = mediaType.toLowerCase();
 
         switch (mediaType) {
-            case "song":
+            case SONG:
                 creators.addAll(creatorRepository.findBySongIdsContaining(id));
                 break;
-            case "album":
+            case ALBUM:
                 creators.addAll(creatorRepository.findByAlbumIdsContaining(id));
                 break;
-            case "videoclip":
+            case VIDEO_CLIP:
                 creators.addAll(creatorRepository.findByVideoClipIdsContaining(id));
                 break;
-            case "videoplaylist":
+            case VIDEO_PLAYLIST:
                 creators.addAll(creatorRepository.findByVideoPlaylistIdsContaining(id));
                 break;
-            case "podcastepesode":
+            case POD_EPISODE:
                 creators.addAll(creatorRepository.findByPodcastEpisodeIdsContaining(id));
                 break;
-            case "podcastseason":
+            case POD_SEASON:
                 creators.addAll(creatorRepository.findByPodcastSeasonIdsContaining(id));
                 break;
             default:
