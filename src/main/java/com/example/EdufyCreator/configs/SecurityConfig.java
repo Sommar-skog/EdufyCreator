@@ -4,6 +4,7 @@ import com.example.EdufyCreator.converters.JwtAuthConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -11,9 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 //ED-154-AA
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true) //ED-224-AA
 public class SecurityConfig {
-
-    //add converter
 
     //ED-154-AA
     @Bean
@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/h2-console/**").permitAll() //ED-170-AA
-                                .anyRequest().permitAll() //change later
+                                .anyRequest().authenticated() //ED-224-AA
                 //ED-169-AWS connected auth converter
                 )
                    .oauth2ResourceServer(oauth2 ->
