@@ -1,6 +1,7 @@
 package com.example.EdufyCreator.controllers;
 
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
+import com.example.EdufyCreator.models.dtos.MediaDTO;
 import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
 import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.services.CreatorService;
@@ -34,5 +35,13 @@ public class ClientController {
     public ResponseEntity<Void> registerMedia(@RequestBody MediaRecordRequest request){
         creatorService.registerMedia(request);
         return ResponseEntity.ok().build();
+    }
+
+    //ED-320-AWS
+    @GetMapping("/mediabycreator/{creatorId}/{mediaType}")
+    public ResponseEntity<List<MediaDTO>> getMediaByCreatorId(@PathVariable Long creatorId, @PathVariable MediaType mediaType){
+        List<MediaDTO> media = creatorService.getMediaByCreatorId(creatorId, mediaType);
+
+        return ResponseEntity.ok(media);
     }
 }

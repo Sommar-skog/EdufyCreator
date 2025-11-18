@@ -3,6 +3,7 @@ package com.example.EdufyCreator.services;
 import com.example.EdufyCreator.exceptions.BadRequestException;
 import com.example.EdufyCreator.exceptions.ResourceNotFoundException;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
+import com.example.EdufyCreator.models.dtos.MediaDTO;
 import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
 import com.example.EdufyCreator.models.dtos.mappers.CreatorResponseMapper;
 import com.example.EdufyCreator.models.entities.Creator;
@@ -68,6 +69,19 @@ public class CreatorServiceImpl implements CreatorService {
         }
 
         creatorRepository.saveAll(creators);
+    }
+
+    @Override
+    public List<MediaDTO> getMediaByCreatorId(Long creatorId, MediaType mediaType) {
+        validateGetMediaRequest(creatorId, mediaType);
+
+        Creator creator = getCreatorOrThrow(creatorId);
+
+        List<Long> mediaIds = extractMediaIds(creator, mediaType);
+
+        return mediaIds.stream()
+                .map(MediaDTO::new)
+                .collect(Collectors.toList());
     }
 
     //ED-146-AA //ED-257-AA
@@ -141,29 +155,16 @@ public class CreatorServiceImpl implements CreatorService {
         return creators;
     }
 
-    //ED-321-AWS
+    //ED-321-AWS & ED-320-AWS
     private void applyMediaToCreator(Creator creator, MediaType mediaType, Long mediaId){
         switch (mediaType) {
-            case SONG:
-                addIfMissing(creator.getSongIds(), mediaId);
-                break;
-            case ALBUM:
-                addIfMissing(creator.getAlbumIds(), mediaId);
-                break;
-            case VIDEO_CLIP:
-                addIfMissing(creator.getVideoClipIds(), mediaId);
-                break;
-            case VIDEO_PLAYLIST:
-                addIfMissing(creator.getVideoPlaylistIds(), mediaId);
-                break;
-            case POD_EPISODE:
-                addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
-                break;
-            case POD_SEASON:
-                addIfMissing(creator.getPodcastSeasonIds(), mediaId);
-                break;
-            default:
-                throw new BadRequestException("mediaType", mediaType);
+            case SONG -> addIfMissing(creator.getSongIds(), mediaId);
+            case ALBUM -> addIfMissing(creator.getAlbumIds(), mediaId);
+            case VIDEO_CLIP  -> addIfMissing(creator.getVideoClipIds(), mediaId);
+            case VIDEO_PLAYLIST -> addIfMissing(creator.getVideoPlaylistIds(), mediaId);
+            case POD_EPISODE  -> addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
+            case POD_SEASON  -> addIfMissing(creator.getPodcastSeasonIds(), mediaId);
+            default -> throw new BadRequestException("mediaType", mediaType);
         }
     }
 
@@ -177,4 +178,31 @@ public class CreatorServiceImpl implements CreatorService {
         }
     }
 
+    //ED-320-AWS
+    private void validateGetMediaRequest(Long creatorId, MediaType mediaType){
+        if(creatorId == null){
+            throw new BadRequestException("creatorId", null);
+        }
+        if(mediaType == null){
+            throw new BadRequestException("mediaType", null);
+        }
+    }
+
+    //ED-320-AWS
+    private Creator getCreatorOrThrow(Long creatorId){
+        return creatorRepository.findById(creatorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Creator", "id", creatorId));
+    }
+
+    //ED-320-AWS
+    private List<Long> extractMediaIds(Creator creator, MediaType mediaType){
+        return switch (mediaType) {
+            case SONG -> creator.getSongIds();
+            case ALBUM -> creator.getAlbumIds();
+            case VIDEO_CLIP -> creator.getVideoClipIds();
+            case VIDEO_PLAYLIST -> creator.getVideoPlaylistIds();
+            case POD_EPISODE -> creator.getPodcastEpisodeIds();
+            case POD_SEASON -> creator.getPodcastSeasonIds();
+        };
+    }
 }
