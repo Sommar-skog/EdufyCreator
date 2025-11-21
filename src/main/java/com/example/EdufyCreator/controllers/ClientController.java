@@ -7,6 +7,8 @@ import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.services.CreatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 //ED-257-AA
 @RestController
 @RequestMapping("/creator")
+@PreAuthorize("hasRole('microservice_access')")
 public class ClientController {
 
     private final CreatorService creatorService;
@@ -43,5 +46,11 @@ public class ClientController {
         List<MediaDTO> media = creatorService.getMediaByCreatorId(creatorId, mediaType);
 
         return ResponseEntity.ok(media);
+    }
+
+    //ED-339-AA
+    @GetMapping("/creator/{id}/clientcall")
+    public ResponseEntity<CreatorResponseDTO> getCreatorById(@PathVariable Long id, Authentication authentication) {
+        return ResponseEntity.ok(creatorService.getCreatorById(id,authentication));
     }
 }
