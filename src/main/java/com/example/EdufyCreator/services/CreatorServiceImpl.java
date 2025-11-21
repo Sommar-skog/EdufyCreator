@@ -106,10 +106,10 @@ public class CreatorServiceImpl implements CreatorService {
             case VIDEO_PLAYLIST:
                 creators.addAll(creatorRepository.findByVideoPlaylistIdsContaining(id));
                 break;
-            case POD_EPISODE:
+            case PODCAST_EPISODE:
                 creators.addAll(creatorRepository.findByPodcastEpisodeIdsContaining(id));
                 break;
-            case POD_SEASON:
+            case PODCAST_SEASON:
                 creators.addAll(creatorRepository.findByPodcastSeasonIdsContaining(id));
                 break;
             default:
@@ -167,8 +167,8 @@ public class CreatorServiceImpl implements CreatorService {
             case ALBUM -> addIfMissing(creator.getAlbumIds(), mediaId);
             case VIDEO_CLIP  -> addIfMissing(creator.getVideoClipIds(), mediaId);
             case VIDEO_PLAYLIST -> addIfMissing(creator.getVideoPlaylistIds(), mediaId);
-            case POD_EPISODE  -> addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
-            case POD_SEASON  -> addIfMissing(creator.getPodcastSeasonIds(), mediaId);
+            case PODCAST_EPISODE  -> addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
+            case PODCAST_SEASON  -> addIfMissing(creator.getPodcastSeasonIds(), mediaId);
             default -> throw new BadRequestException("mediaType", mediaType);
         }
     }
@@ -206,8 +206,8 @@ public class CreatorServiceImpl implements CreatorService {
             case ALBUM -> creator.getAlbumIds();
             case VIDEO_CLIP -> creator.getVideoClipIds();
             case VIDEO_PLAYLIST -> creator.getVideoPlaylistIds();
-            case POD_EPISODE -> creator.getPodcastEpisodeIds();
-            case POD_SEASON -> creator.getPodcastSeasonIds();
+            case PODCAST_EPISODE -> creator.getPodcastEpisodeIds();
+            case PODCAST_SEASON -> creator.getPodcastSeasonIds();
         };
     }
 }
