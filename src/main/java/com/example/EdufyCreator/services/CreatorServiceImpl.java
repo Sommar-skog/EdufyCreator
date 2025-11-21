@@ -9,6 +9,7 @@ import com.example.EdufyCreator.models.dtos.mappers.CreatorResponseMapper;
 import com.example.EdufyCreator.models.entities.Creator;
 import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.repositories.CreatorRepository;
+import com.example.EdufyCreator.services.util.ValidateMediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -48,11 +49,12 @@ public class CreatorServiceImpl implements CreatorService {
 
     //ED-146-AA //ED-257-AA
     @Override
-    public List<CreatorResponseDTO> getCreatorsByMediaId(MediaType mediaType, Long id) {
-        List<Creator> creators = getCreatorsByMediaIdFromDB(mediaType, id);
+    public List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id) {
+        MediaType mt = ValidateMediaType.getTypeFromClientCall(mediaType);
+        List<Creator> creators = getCreatorsByMediaIdFromDB(mt, id);
 
         if (creators.isEmpty()) {
-            throw new ResourceNotFoundException("Creator", mediaType + "Id", id);
+            throw new ResourceNotFoundException("Creator", mt + "Id", id);
         }
 
         return creators.stream().map(CreatorResponseMapper::toDTOWithUsernameAndId).collect(Collectors.toList());
@@ -106,10 +108,10 @@ public class CreatorServiceImpl implements CreatorService {
             case VIDEO_PLAYLIST:
                 creators.addAll(creatorRepository.findByVideoPlaylistIdsContaining(id));
                 break;
-            case POD_EPISODE:
+            case PODCAST_EPISODE:
                 creators.addAll(creatorRepository.findByPodcastEpisodeIdsContaining(id));
                 break;
-            case POD_SEASON:
+            case PODCAST_SEASON:
                 creators.addAll(creatorRepository.findByPodcastSeasonIdsContaining(id));
                 break;
             default:
@@ -167,8 +169,8 @@ public class CreatorServiceImpl implements CreatorService {
             case ALBUM -> addIfMissing(creator.getAlbumIds(), mediaId);
             case VIDEO_CLIP  -> addIfMissing(creator.getVideoClipIds(), mediaId);
             case VIDEO_PLAYLIST -> addIfMissing(creator.getVideoPlaylistIds(), mediaId);
-            case POD_EPISODE  -> addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
-            case POD_SEASON  -> addIfMissing(creator.getPodcastSeasonIds(), mediaId);
+            case PODCAST_EPISODE  -> addIfMissing(creator.getPodcastEpisodeIds(), mediaId);
+            case PODCAST_SEASON  -> addIfMissing(creator.getPodcastSeasonIds(), mediaId);
             default -> throw new BadRequestException("mediaType", mediaType);
         }
     }
@@ -206,8 +208,8 @@ public class CreatorServiceImpl implements CreatorService {
             case ALBUM -> creator.getAlbumIds();
             case VIDEO_CLIP -> creator.getVideoClipIds();
             case VIDEO_PLAYLIST -> creator.getVideoPlaylistIds();
-            case POD_EPISODE -> creator.getPodcastEpisodeIds();
-            case POD_SEASON -> creator.getPodcastSeasonIds();
+            case PODCAST_EPISODE -> creator.getPodcastEpisodeIds();
+            case PODCAST_SEASON -> creator.getPodcastSeasonIds();
         };
     }
 }

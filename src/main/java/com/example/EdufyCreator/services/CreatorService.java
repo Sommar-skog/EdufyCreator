@@ -14,7 +14,7 @@ public interface CreatorService {
     CreatorResponseDTO getCreatorById(Long id, Authentication auth);
 
     //ED-146-AA
-    List<CreatorResponseDTO> getCreatorsByMediaId(MediaType mediaType, Long id);
+    List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id);
 
     //ED-321-AWS
     void registerMedia(MediaRecordRequest request);
