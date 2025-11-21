@@ -9,7 +9,6 @@ import com.example.EdufyCreator.models.dtos.mappers.CreatorResponseMapper;
 import com.example.EdufyCreator.models.entities.Creator;
 import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.repositories.CreatorRepository;
-import com.example.EdufyCreator.services.util.ValidateMediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -49,12 +48,11 @@ public class CreatorServiceImpl implements CreatorService {
 
     //ED-146-AA //ED-257-AA
     @Override
-    public List<CreatorResponseDTO> getCreatorsByMediaId(String mediaType, Long id) {
-        MediaType mt = ValidateMediaType.getTypeFromClientCall(mediaType);
-        List<Creator> creators = getCreatorsByMediaIdFromDB(mt, id);
+    public List<CreatorResponseDTO> getCreatorsByMediaId(MediaType mediaType, Long id) {
+        List<Creator> creators = getCreatorsByMediaIdFromDB(mediaType, id);
 
         if (creators.isEmpty()) {
-            throw new ResourceNotFoundException("Creator", mt + "Id", id);
+            throw new ResourceNotFoundException("Creator", mediaType + "Id", id);
         }
 
         return creators.stream().map(CreatorResponseMapper::toDTOWithUsernameAndId).collect(Collectors.toList());

@@ -28,7 +28,7 @@ public class ClientController {
 
     //ED-146-AA //ED-257-AA
     @GetMapping("/creators-mediaid")
-    public ResponseEntity<List<CreatorResponseDTO>> getCreatorsByMediaId(@RequestParam("mediaType") String mediaType, @RequestParam("id") Long id) {
+    public ResponseEntity<List<CreatorResponseDTO>> getCreatorsByMediaId(@RequestParam("mediaType") MediaType mediaType, @RequestParam("id") Long id) {
         List<CreatorResponseDTO> creators = creatorService.getCreatorsByMediaId(mediaType, id);
         return ResponseEntity.ok(creators);
     }
