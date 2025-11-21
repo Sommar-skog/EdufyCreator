@@ -28,6 +28,13 @@ public class CreatorResponseMapper {
         return dto;
     }
 
+    //ED-339-AA
+    public static CreatorResponseDTO toDTOClientCallJustId(Creator creator) {
+        CreatorResponseDTO dto = new CreatorResponseDTO();
+        dto.setId(creator.getId());
+        return dto;
+    }
+
     //ED-146-AA
     public static CreatorResponseDTO toDTOWithUsernameAndId(Creator creator) {
         CreatorResponseDTO dto = new CreatorResponseDTO();

@@ -10,6 +10,7 @@ import com.example.EdufyCreator.models.entities.Creator;
 import com.example.EdufyCreator.models.enums.MediaType;
 import com.example.EdufyCreator.repositories.CreatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,12 +33,16 @@ public class CreatorServiceImpl implements CreatorService {
 
     //ED-143-AA
     @Override
-    public CreatorResponseDTO getCreatorById(Long id) {
+    public CreatorResponseDTO getCreatorById(Long id, Authentication auth) {
         Creator creator = creatorRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Creator", "id", id));
 
-        //TODO Get (music, video, pod lists with titles).
+        if (auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_microservice_access"))) {
+            return CreatorResponseMapper.toDTOClientCallJustId(creator);
+        }
 
+        //TODO Get (music, video, pod lists with titles) for FullDTO.
         return CreatorResponseMapper.toFullDTO(creator);
     }
 
