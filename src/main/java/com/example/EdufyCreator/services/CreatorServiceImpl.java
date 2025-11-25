@@ -2,6 +2,7 @@ package com.example.EdufyCreator.services;
 
 import com.example.EdufyCreator.exceptions.BadRequestException;
 import com.example.EdufyCreator.exceptions.ResourceNotFoundException;
+import com.example.EdufyCreator.models.dtos.CreateCreatorDTO;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
 import com.example.EdufyCreator.models.dtos.MediaDTO;
 import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
@@ -87,6 +88,38 @@ public class CreatorServiceImpl implements CreatorService {
         return mediaIds.stream()
                 .map(MediaDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CreatorResponseDTO createCreator(CreateCreatorDTO dto) {
+         if(dto == null){
+             throw new BadRequestException("request", null);
+         }
+         if(dto.getSub() == null || dto.getSub().isBlank()){
+             throw new BadRequestException("sub", dto.getSub());
+         }
+         if(dto.getUsername() == null || dto.getUsername().isBlank()){
+             throw new BadRequestException("username", dto.getUsername());
+         }
+
+         if(creatorRepository.existsBySub(dto.getSub())){
+             throw new BadRequestException("sub", dto.getSub());
+         }
+
+         if(creatorRepository.existsByUsername(dto.getUsername())){
+             throw new BadRequestException("username", dto.getUsername());
+         }
+
+         boolean active = dto.getActive() == null || dto.getActive();
+
+         Creator creator = new Creator();
+         creator.setSub(dto.getSub());
+         creator.setUsername(dto.getUsername());
+         creator.setActive(active);
+
+         Creator saved = creatorRepository.save(creator);
+
+         return CreatorResponseMapper.toDTOWithUsernameAndId(saved);
     }
 
     //ED-146-AA //ED-257-AA
