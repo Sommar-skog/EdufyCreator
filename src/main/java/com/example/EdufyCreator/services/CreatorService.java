@@ -1,5 +1,6 @@
 package com.example.EdufyCreator.services;
 
+import com.example.EdufyCreator.models.dtos.CreateCreatorDTO;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
 import com.example.EdufyCreator.models.dtos.MediaDTO;
 import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
@@ -21,4 +22,7 @@ public interface CreatorService {
 
     //ED-320-AWS
     List<MediaDTO> getMediaByCreatorId(Long creatorId, MediaType mediaType);
+
+    //ED-332-AWS
+    CreatorResponseDTO createCreator(CreateCreatorDTO dto);
 }
