@@ -90,20 +90,14 @@ public class CreatorServiceImpl implements CreatorService {
                 .collect(Collectors.toList());
     }
 
+    //ED-319-SA: changed from username to name. Removed sub too
     @Override
     public CreatorResponseDTO createCreator(CreateCreatorDTO dto) {
          if(dto == null){
              throw new BadRequestException("request", null);
          }
-         if(dto.getSub() == null || dto.getSub().isBlank()){
-             throw new BadRequestException("sub", dto.getSub());
-         }
          if(dto.getUsername() == null || dto.getUsername().isBlank()){
              throw new BadRequestException("username", dto.getUsername());
-         }
-
-         if(creatorRepository.existsBySub(dto.getSub())){
-             throw new BadRequestException("sub", dto.getSub());
          }
 
          if(creatorRepository.existsByUsername(dto.getUsername())){
@@ -113,7 +107,6 @@ public class CreatorServiceImpl implements CreatorService {
          boolean active = dto.getActive() == null || dto.getActive();
 
          Creator creator = new Creator();
-         creator.setSub(dto.getSub());
          creator.setUsername(dto.getUsername());
          creator.setActive(active);
 

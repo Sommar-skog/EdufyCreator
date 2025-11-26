@@ -10,8 +10,7 @@ import java.util.List;
 public class CreatorResponseDTO {
 
     private long id;
-    private String sub;
-    private String username;
+    private String username;//ED-319-SA: Removed sub
     private List<String> videoClips;
     private List<String> videoPlaylists;
     private List<String> songs;
@@ -24,9 +23,9 @@ public class CreatorResponseDTO {
 
     public CreatorResponseDTO() {}
 
+    //ED-319-SA: changed from username to name. Removed sub too
     public CreatorResponseDTO(Creator c, List<String> videoClips,List<String> videoPlaylists,List<String> songs,List<String> albums,List<String> podcastEpisodes,List<String> podcastSeasons) {
         this.id = c.getId();
-        this.sub = c.getSub();
         this.username = c.getUsername();
         this.videoClips = videoClips;
         this.videoPlaylists = videoPlaylists;
@@ -39,7 +38,6 @@ public class CreatorResponseDTO {
 
     public CreatorResponseDTO(Creator c) {
         this.id = c.getId();
-        this.sub = c.getSub();
         this.username = c.getUsername();
         this.active = true;
     }
@@ -50,14 +48,6 @@ public class CreatorResponseDTO {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getSub() {
-        return sub;
-    }
-
-    public void setSub(String sub) {
-        this.sub = sub;
     }
 
     public String getUsername() {
@@ -128,8 +118,7 @@ public class CreatorResponseDTO {
     public String toString() {
         return "CreatorResponseDTO{" +
                 "id=" + id +
-                ", sub='" + sub + '\'' +
-                ", username='" + username + '\'' +
+                ", name='" + username + '\'' +
                 ", videoClips=" + videoClips +
                 ", videoPlaylists=" + videoPlaylists +
                 ", songs=" + songs +

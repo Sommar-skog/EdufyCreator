@@ -10,12 +10,12 @@ import java.util.List;
 public class CreatorResponseMapper {
 
     //ED-143-AA
+    //ED-319-SA: removed sub
     public static CreatorResponseDTO toFullDTO(Creator creator) {
 
 
         CreatorResponseDTO dto = new CreatorResponseDTO();
         dto.setId(creator.getId());
-        dto.setSub(creator.getSub());
         dto.setUsername(creator.getUsername());
         dto.setActive(creator.isActive());
         dto.setVideoClips(getMediaNames(creator.getVideoClipIds()));

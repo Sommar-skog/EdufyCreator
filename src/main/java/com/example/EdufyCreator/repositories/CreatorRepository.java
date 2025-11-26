@@ -19,6 +19,6 @@ public interface CreatorRepository extends JpaRepository<Creator, Long> {
 
     //ED-332-AWS
     boolean existsByUsername(String username);
-    boolean existsBySub(String sub);
+    //ED-319-SA: Removed sub
 
 }

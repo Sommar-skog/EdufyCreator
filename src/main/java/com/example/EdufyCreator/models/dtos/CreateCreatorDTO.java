@@ -3,25 +3,17 @@ package com.example.EdufyCreator.models.dtos;
 //ED-332-AWS
 public class CreateCreatorDTO {
 
-    private String sub;
-    private String username;
+    private String username;//ED-319-SA: Removed sub
     private Boolean active;
 
     public CreateCreatorDTO() {
     }
 
-    public CreateCreatorDTO(String sub, String username, Boolean active) {
-        this.sub = sub;
+    public CreateCreatorDTO(String username, Boolean active) {
         this.username = username;
         this.active = active;
     }
 
-    public String getSub() {
-        return sub;
-    }
-    public void setSub(String sub) {
-        this.sub = sub;
-    }
     public String getUsername() {
         return username;
     }
@@ -38,7 +30,6 @@ public class CreateCreatorDTO {
     @Override
     public String toString() {
         return "CreateCreatorDTO{" +
-                "sub='" + sub + '\'' +
                 ", username='" + username + '\'' +
                 ", active=" + active +
                 '}';

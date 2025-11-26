@@ -1,25 +1,26 @@
+-- ED-319-SA: removed sub
 -- Creators
-INSERT IGNORE INTO creator (id, sub, username, active) VALUES
-(1, 'creator-dummy-001', 'Maya Carter', true),
-(2, 'creator-dummy-002', 'Ethan Rivers', true),
-(3, 'creator-dummy-003', 'Lena Harper', true),
-(4, 'creator-dummy-004', 'Jonah Blake', true),
-(5, 'creator-dummy-005', 'Ava Thompson', true),
-(6, 'creator-dummy-006', 'Noah Gallagher', true),
-(7, 'creator-dummy-007', 'Sophie Bennett', true),
-(8, 'creator-dummy-008', 'Lucas Moreno', true),
-(9, 'creator-dummy-009', 'Olivia Hayes', true),
-(10, 'creator-dummy-010', 'Jasper Cole', true),
-(11, 'creator-dummy-011', 'Chloe Turner', true),
-(12, 'creator-dummy-012', 'Miles Donovan', true),
-(13, 'creator-dummy-013', 'Isla Parker', true),
-(14, 'creator-dummy-014', 'Ryan Fletcher', true),
-(15, 'creator-dummy-015', 'Nina Alvarez', true),
-(16, 'creator-dummy-016', 'Owen Brooks', true),
-(17, 'creator-dummy-017', 'Ella Montgomery', true),
-(18, 'creator-dummy-018', 'Liam Hart', true),
-(19, 'creator-dummy-019', 'Zoe Sinclair', true),
-(20, 'creator-dummy-020', 'Adam Keller', true);
+INSERT IGNORE INTO creator (id, username, active) VALUES
+(1, 'Maya Carter', true),
+(2, 'Ethan Rivers', true),
+(3, 'Lena Harper', true),
+(4, 'Jonah Blake', true),
+(5, 'Ava Thompson', true),
+(6, 'Noah Gallagher', true),
+(7, 'Sophie Bennett', true),
+(8, 'Lucas Moreno', true),
+(9, 'Olivia Hayes', true),
+(10, 'Jasper Cole', true),
+(11, 'Chloe Turner', true),
+(12, 'Miles Donovan', true),
+(13, 'Isla Parker', true),
+(14, 'Ryan Fletcher', true),
+(15, 'Nina Alvarez', true),
+(16, 'Owen Brooks', true),
+(17, 'Ella Montgomery', true),
+(18, 'Liam Hart', true),
+(19, 'Zoe Sinclair', true),
+(20, 'Adam Keller', true);
 
 -- Creator -> Albums
 INSERT IGNORE INTO creator_albums (creator_id, album_id) VALUES
