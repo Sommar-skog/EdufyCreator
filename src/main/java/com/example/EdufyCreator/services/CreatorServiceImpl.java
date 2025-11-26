@@ -96,18 +96,18 @@ public class CreatorServiceImpl implements CreatorService {
          if(dto == null){
              throw new BadRequestException("request", null);
          }
-         if(dto.getName() == null || dto.getName().isBlank()){
-             throw new BadRequestException("username", dto.getName());
+         if(dto.getUsername() == null || dto.getUsername().isBlank()){
+             throw new BadRequestException("username", dto.getUsername());
          }
 
-         if(creatorRepository.existsByName(dto.getName())){
-             throw new BadRequestException("username", dto.getName());
+         if(creatorRepository.existsByUsername(dto.getUsername())){
+             throw new BadRequestException("username", dto.getUsername());
          }
 
          boolean active = dto.getActive() == null || dto.getActive();
 
          Creator creator = new Creator();
-         creator.setName(dto.getName());
+         creator.setUsername(dto.getUsername());
          creator.setActive(active);
 
          Creator saved = creatorRepository.save(creator);

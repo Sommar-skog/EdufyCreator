@@ -1,5 +1,6 @@
+-- ED-319-SA: removed sub
 -- Creators
-INSERT IGNORE INTO creator (id, name, active) VALUES
+INSERT IGNORE INTO creator (id, username, active) VALUES
 (1, 'Maya Carter', true),
 (2, 'Ethan Rivers', true),
 (3, 'Lena Harper', true),

@@ -1,9 +1,9 @@
 
 -- ED-174-AA
 -- ED-332-AWS Removed id från Insert INTO creator
--- ED-319-SA changed username to name and removed sub
+-- ED-319-SA removed sub
 -- ====== Creators ======
-INSERT INTO creator (name, active) VALUES
+INSERT INTO creator (username, active) VALUES
                                        ('Luna Waves', true),
                                                             ('Neon Pulse', true),
                                                             ('Echo Sphere', true),

@@ -14,8 +14,9 @@ public class Creator {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false)
-    private String name;//ED-319-SA: changed from username to name. Removed sub too
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+    //ED-319-SA: Removed sub
 
     //ED-150-AA
     @ElementCollection
@@ -76,10 +77,10 @@ public class Creator {
 
     public Creator() {}
 
-    //ED-319-SA: changed from username to name. Removed sub too
-    public Creator(Long id, String name, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, List<Long> podcastSeasonIds, boolean active) {
+    //ED-319-SA: Removed sub
+    public Creator(Long id, String username, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, List<Long> podcastSeasonIds, boolean active) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.videoClipIds = videoClipIds;
         this.videoPlaylistIds = videoPlaylistIds;
         this.songIds = songIds;
@@ -91,7 +92,7 @@ public class Creator {
 
     public Creator(Creator creator) {
         this.id = creator.id;
-        this.name = creator.name;
+        this.username = creator.username;
         this.videoClipIds = creator.videoClipIds;
         this.videoPlaylistIds = creator.videoPlaylistIds;
         this.songIds = creator.songIds;
@@ -109,12 +110,12 @@ public class Creator {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Long> getVideoClipIds() {
@@ -177,7 +178,7 @@ public class Creator {
     public String toString() {
         return "Creator{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", videoClipIds=" + videoClipIds +
                 ", videoPlaylistIds=" + videoPlaylistIds +
                 ", songIds=" + songIds +

@@ -18,6 +18,7 @@ public interface CreatorRepository extends JpaRepository<Creator, Long> {
     List<Creator> findByPodcastSeasonIdsContaining(Long podcastSongId);
 
     //ED-332-AWS
-    boolean existsByName(String name);//ED-319-SA: changed from username to name. Removed sub too
+    boolean existsByUsername(String name);
+    //ED-319-SA: Removed sub
 
 }

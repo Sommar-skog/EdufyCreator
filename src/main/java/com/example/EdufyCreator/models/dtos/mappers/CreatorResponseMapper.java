@@ -16,7 +16,7 @@ public class CreatorResponseMapper {
 
         CreatorResponseDTO dto = new CreatorResponseDTO();
         dto.setId(creator.getId());
-        dto.setName(creator.getName());
+        dto.setUsername(creator.getUsername());
         dto.setActive(creator.isActive());
         dto.setVideoClips(getMediaNames(creator.getVideoClipIds()));
         dto.setVideoPlaylists(getMediaNames(creator.getVideoPlaylistIds()));
@@ -39,7 +39,7 @@ public class CreatorResponseMapper {
     public static CreatorResponseDTO toDTOWithUsernameAndId(Creator creator) {
         CreatorResponseDTO dto = new CreatorResponseDTO();
         dto.setId(creator.getId());
-        dto.setName(creator.getName());
+        dto.setUsername(creator.getUsername());
         return dto;
     }
 

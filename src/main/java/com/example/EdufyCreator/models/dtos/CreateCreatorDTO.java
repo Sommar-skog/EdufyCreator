@@ -3,22 +3,22 @@ package com.example.EdufyCreator.models.dtos;
 //ED-332-AWS
 public class CreateCreatorDTO {
 
-    private String name;//ED-319-SA: changed from username to name. Removed sub too
+    private String username;//ED-319-SA: Removed sub
     private Boolean active;
 
     public CreateCreatorDTO() {
     }
 
-    public CreateCreatorDTO(String name, Boolean active) {
-        this.name = name;
+    public CreateCreatorDTO(String username, Boolean active) {
+        this.username = username;
         this.active = active;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
     public Boolean getActive() {
         return active;
@@ -30,7 +30,7 @@ public class CreateCreatorDTO {
     @Override
     public String toString() {
         return "CreateCreatorDTO{" +
-                ", username='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", active=" + active +
                 '}';
     }
