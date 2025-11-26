@@ -14,11 +14,8 @@ public class Creator {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sub", unique = true, nullable = false)
-    private String sub;
-
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;//ED-319-SA: changed from username to name. Removed sub too
 
     //ED-150-AA
     @ElementCollection
@@ -79,10 +76,10 @@ public class Creator {
 
     public Creator() {}
 
-    public Creator(Long id, String sub, String username, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, List<Long> podcastSeasonIds, boolean active) {
+    //ED-319-SA: changed from username to name. Removed sub too
+    public Creator(Long id, String name, List<Long> videoClipIds, List<Long> videoPlaylistIds, List<Long> songIds, List<Long> albumIds,List<Long> podcastEpisodeIds, List<Long> podcastSeasonIds, boolean active) {
         this.id = id;
-        this.sub = sub;
-        this.username = username;
+        this.name = name;
         this.videoClipIds = videoClipIds;
         this.videoPlaylistIds = videoPlaylistIds;
         this.songIds = songIds;
@@ -94,8 +91,7 @@ public class Creator {
 
     public Creator(Creator creator) {
         this.id = creator.id;
-        this.sub = creator.sub;
-        this.username = creator.username;
+        this.name = creator.name;
         this.videoClipIds = creator.videoClipIds;
         this.videoPlaylistIds = creator.videoPlaylistIds;
         this.songIds = creator.songIds;
@@ -113,20 +109,12 @@ public class Creator {
         this.id = id;
     }
 
-    public String getSub() {
-        return sub;
+    public String getName() {
+        return name;
     }
 
-    public void setSub(String sub) {
-        this.sub = sub;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Long> getVideoClipIds() {
@@ -189,8 +177,7 @@ public class Creator {
     public String toString() {
         return "Creator{" +
                 "id=" + id +
-                ", sub='" + sub + '\'' +
-                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 ", videoClipIds=" + videoClipIds +
                 ", videoPlaylistIds=" + videoPlaylistIds +
                 ", songIds=" + songIds +

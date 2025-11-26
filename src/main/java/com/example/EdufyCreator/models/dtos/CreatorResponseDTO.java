@@ -10,8 +10,7 @@ import java.util.List;
 public class CreatorResponseDTO {
 
     private long id;
-    private String sub;
-    private String username;
+    private String name;//ED-319-SA: changed from username to name. Removed sub too
     private List<String> videoClips;
     private List<String> videoPlaylists;
     private List<String> songs;
@@ -24,10 +23,10 @@ public class CreatorResponseDTO {
 
     public CreatorResponseDTO() {}
 
+    //ED-319-SA: changed from username to name. Removed sub too
     public CreatorResponseDTO(Creator c, List<String> videoClips,List<String> videoPlaylists,List<String> songs,List<String> albums,List<String> podcastEpisodes,List<String> podcastSeasons) {
         this.id = c.getId();
-        this.sub = c.getSub();
-        this.username = c.getUsername();
+        this.name = c.getName();
         this.videoClips = videoClips;
         this.videoPlaylists = videoPlaylists;
         this.songs = songs;
@@ -39,8 +38,7 @@ public class CreatorResponseDTO {
 
     public CreatorResponseDTO(Creator c) {
         this.id = c.getId();
-        this.sub = c.getSub();
-        this.username = c.getUsername();
+        this.name = c.getName();
         this.active = true;
     }
 
@@ -52,20 +50,12 @@ public class CreatorResponseDTO {
         this.id = id;
     }
 
-    public String getSub() {
-        return sub;
+    public String getName() {
+        return name;
     }
 
-    public void setSub(String sub) {
-        this.sub = sub;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<String> getVideoClips() {
@@ -128,8 +118,7 @@ public class CreatorResponseDTO {
     public String toString() {
         return "CreatorResponseDTO{" +
                 "id=" + id +
-                ", sub='" + sub + '\'' +
-                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 ", videoClips=" + videoClips +
                 ", videoPlaylists=" + videoPlaylists +
                 ", songs=" + songs +
