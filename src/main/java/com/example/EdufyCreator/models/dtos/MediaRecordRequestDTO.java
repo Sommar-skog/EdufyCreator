@@ -5,16 +5,16 @@ import com.example.EdufyCreator.models.enums.MediaType;
 import java.util.List;
 
 //ED-321-AWS
-public class MediaRecordRequest {
+public class MediaRecordRequestDTO {
 
     private Long mediaId;
     private MediaType mediaType;
     private List<Long> creatorIds;
 
-    public MediaRecordRequest() {
+    public MediaRecordRequestDTO() {
     }
 
-    public MediaRecordRequest(Long mediaId, MediaType mediaType, List<Long> creatorIds) {
+    public MediaRecordRequestDTO(Long mediaId, MediaType mediaType, List<Long> creatorIds) {
         this.mediaId = mediaId;
         this.mediaType = mediaType;
         this.creatorIds = creatorIds;
@@ -41,7 +41,7 @@ public class MediaRecordRequest {
 
     @Override
     public String toString() {
-        return "MediaRecordRequest{" +
+        return "MediaRecordRequestDTO{" +
                 "mediaId=" + mediaId +
                 ", mediaType=" + mediaType +
                 ", creatorIds=" + creatorIds +
