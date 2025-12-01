@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/creator")
 public class AdminController {
 
-        private final CreatorService creatorService;
+    private final CreatorService creatorService;
 
-        @Autowired
-        public AdminController(CreatorService creatorService) {
-                this.creatorService = creatorService;
-        }
+    @Autowired
+    public AdminController(CreatorService creatorService) {
+            this.creatorService = creatorService;
+    }
 
-        @GetMapping("/creator/{id}")
-        public ResponseEntity<CreatorResponseDTO> getCreatorById(@PathVariable Long id, Authentication auth) {
-               return ResponseEntity.ok(creatorService.getCreatorById(id, auth));
+    //ED-143-AA
+    @GetMapping("/creator/{id}")
+    public ResponseEntity<CreatorResponseDTO> getCreatorById(@PathVariable Long id, Authentication auth) {
+           return ResponseEntity.ok(creatorService.getCreatorById(id, auth));
         }
 
     //ED-332-AWS
