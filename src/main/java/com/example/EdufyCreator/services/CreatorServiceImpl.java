@@ -43,7 +43,6 @@ public class CreatorServiceImpl implements CreatorService {
             return CreatorResponseMapper.toDTOClientCallJustId(creator);
         }
 
-        //TODO Get (music, video, pod lists with titles) for FullDTO.
         return CreatorResponseMapper.toFullDTO(creator);
     }
 
