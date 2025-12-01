@@ -45,7 +45,6 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         return jwt.getSubject();
     }
 
-
     private Collection<? extends GrantedAuthority> extractClientRoles(Jwt jwt) {
         if (!jwt.hasClaim("resource_access")) return Set.of();
 
@@ -67,7 +66,5 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
                 .filter(role -> !role.isBlank())
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toUnmodifiableSet());
-
     }
-
 }
