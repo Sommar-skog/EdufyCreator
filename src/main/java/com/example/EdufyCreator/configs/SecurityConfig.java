@@ -33,7 +33,6 @@ public class SecurityConfig {
                          oauth2
                                  .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter))
                  );
-
         return http.build();
     }
 }

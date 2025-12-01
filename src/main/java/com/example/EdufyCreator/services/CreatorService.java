@@ -3,7 +3,7 @@ package com.example.EdufyCreator.services;
 import com.example.EdufyCreator.models.dtos.CreateCreatorDTO;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
 import com.example.EdufyCreator.models.dtos.MediaDTO;
-import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
+import com.example.EdufyCreator.models.dtos.MediaRecordRequestDTO;
 import com.example.EdufyCreator.models.enums.MediaType;
 import org.springframework.security.core.Authentication;
 
@@ -18,7 +18,7 @@ public interface CreatorService {
     List<CreatorResponseDTO> getCreatorsByMediaId(MediaType mediaType, Long id);
 
     //ED-321-AWS
-    void registerMedia(MediaRecordRequest request);
+    void registerMedia(MediaRecordRequestDTO request);
 
     //ED-320-AWS
     List<MediaDTO> getMediaByCreatorId(Long creatorId, MediaType mediaType);

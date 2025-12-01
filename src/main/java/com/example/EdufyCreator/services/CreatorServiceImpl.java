@@ -5,7 +5,7 @@ import com.example.EdufyCreator.exceptions.ResourceNotFoundException;
 import com.example.EdufyCreator.models.dtos.CreateCreatorDTO;
 import com.example.EdufyCreator.models.dtos.CreatorResponseDTO;
 import com.example.EdufyCreator.models.dtos.MediaDTO;
-import com.example.EdufyCreator.models.dtos.MediaRecordRequest;
+import com.example.EdufyCreator.models.dtos.MediaRecordRequestDTO;
 import com.example.EdufyCreator.models.dtos.mappers.CreatorResponseMapper;
 import com.example.EdufyCreator.models.entities.Creator;
 import com.example.EdufyCreator.models.enums.MediaType;
@@ -43,7 +43,6 @@ public class CreatorServiceImpl implements CreatorService {
             return CreatorResponseMapper.toDTOClientCallJustId(creator);
         }
 
-        //TODO Get (music, video, pod lists with titles) for FullDTO.
         return CreatorResponseMapper.toFullDTO(creator);
     }
 
@@ -61,7 +60,7 @@ public class CreatorServiceImpl implements CreatorService {
 
     //ED-321-AWS
     @Override
-    public void registerMedia(MediaRecordRequest request) {
+    public void registerMedia(MediaRecordRequestDTO request) {
         validateMediaRecordRequest(request);
 
         Long mediaId = request.getMediaId();
@@ -145,7 +144,7 @@ public class CreatorServiceImpl implements CreatorService {
     }
 
     //ED-321-AWS
-    private void validateMediaRecordRequest(MediaRecordRequest request) {
+    private void validateMediaRecordRequest(MediaRecordRequestDTO request) {
         if(request == null){
             throw new BadRequestException("request", null);
         }
